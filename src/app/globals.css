@@ -1,0 +1,587 @@
+/* ============================================================
+   RX83 Agencia de IA — hoja global
+   Portada desde output/landing-rx83/page.html. Los tokens mandan:
+   ningún componente declara colores ni familias sueltas.
+   ============================================================ */
+:root{
+  color-scheme: dark;
+
+  --bg:          oklch(0.145 0 0);
+  --bg-2:        oklch(0.185 0 0);
+  --bg-3:        oklch(0.225 0 0);
+  --ink:         oklch(0.965 0 0);
+  --ink-dim:     oklch(0.715 0 0);
+  --ink-faint:   oklch(0.600 0 0);
+  --line:        oklch(0.300 0 0);
+  --line-soft:   oklch(0.235 0 0);
+
+  --accent:      oklch(0.985 0 0);         /* blanco */
+  --accent-text: oklch(0.985 0 0);
+  --accent-ink:  oklch(0.145 0 0);         /* tinta SOBRE el accent: se invierte */
+
+  --grain-op: 0.055;
+
+  /* Color de marca, no de tema: se define una sola vez y NO se redefine en los
+     bloques claros. Es la única fuente de verdad del punto del logo y empareja
+     con el #2E5BFF que los SVG de assets/ llevan dentro del path. */
+  --brand-dot: #2E5BFF;
+  --swarm-ink: 244,244,246;
+
+  --pad: clamp(1.25rem, 4.2vw, 4.75rem);
+  --maxw: 1680px;
+  --rail: clamp(1.25rem, 4.2vw, 4.75rem);
+
+  --t-h1:   clamp(2.2rem, 5.9vw, 6.1rem);
+  --t-h2:   clamp(1.9rem, 4.9vw, 4.5rem);
+  --t-h3:   clamp(1.45rem, 2.7vw, 2.55rem);
+  --t-lead: clamp(1.1rem, 1.75vw, 1.6rem);
+  --t-body: clamp(1rem, 1.05vw, 1.15rem);
+  --t-mono: clamp(0.64rem, 0.78vw, 0.72rem);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Dos niveles a propósito: la display hace eco del logotipo y se reserva
+     para los momentos monumentales; los subtítulos van en la de texto. */
+  --font-display: var(--font-display-src), ui-sans-serif, system-ui, sans-serif;
+  --font-body:    var(--font-body-src), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    var(--font-mono-src), ui-monospace, monospace;
+}
+
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme: light;
+    --bg:          oklch(0.962 0 0);
+    --bg-2:        oklch(0.985 0 0);
+    --bg-3:        oklch(0.925 0 0);
+    --ink:         oklch(0.185 0 0);
+    --ink-dim:     oklch(0.455 0 0);
+    --ink-faint:   oklch(0.500 0 0);
+    --line:        oklch(0.845 0 0);
+    --line-soft:   oklch(0.900 0 0);
+    --accent:      oklch(0.255 0 0);       /* grafito */
+    --accent-text: oklch(0.255 0 0);
+    --accent-ink:  oklch(0.985 0 0);
+    --swarm-ink:   28,28,32;
+    --grain-op: 0.04;
+  }
+}
+:root[data-theme="light"]{
+  color-scheme: light;
+  --bg:          oklch(0.962 0 0);
+  --bg-2:        oklch(0.985 0 0);
+  --bg-3:        oklch(0.925 0 0);
+  --ink:         oklch(0.185 0 0);
+  --ink-dim:     oklch(0.455 0 0);
+  --ink-faint:   oklch(0.500 0 0);
+  --line:        oklch(0.845 0 0);
+  --line-soft:   oklch(0.900 0 0);
+  --accent:      oklch(0.255 0 0);       /* grafito */
+  --accent-text: oklch(0.255 0 0);
+  --accent-ink:  oklch(0.985 0 0);
+  --swarm-ink:   28,28,32;
+  --grain-op: 0.04;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* grano sutil sobre todo el documento */
+body::after{
+  content:"";
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 60;
+  opacity: var(--grain-op);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+
+h1,h2,h3{
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  text-wrap: balance;
+}
+
+a{ color: inherit; text-decoration: none; }
+p{ margin: 0; }
+ul,ol{ margin: 0; padding: 0; list-style: none; }
+
+:focus-visible{
+  outline: 2px solid var(--accent-text);
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+.skip{
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: var(--accent-ink);
+  padding: .9rem 1.2rem; font-size: .9rem;
+}
+.skip:focus{ left: 1rem; top: 1rem; }
+
+.wrap{
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.mono{
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- logotipo ---------- */
+.logo{ display: block; height: 100%; width: auto; }
+.logo .word{ fill: currentColor; }
+/* El punto NO sigue al accent: es lo único que conserva el azul de marca, y así
+   el logo inline coincide con los SVG de assets/. */
+.logo .dot{ fill: var(--brand-dot); }
+
+/* ---------- nav ---------- */
+.nav{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.1rem var(--pad);
+  backdrop-filter: blur(14px);
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color .4s var(--ease), background .4s var(--ease);
+}
+.nav[data-stuck="true"]{ border-bottom-color: var(--line-soft); }
+.nav-logo{ height: 20px; display: flex; align-items: center; }
+.nav-links{ display: flex; gap: 1.75rem; margin-left: auto; align-items: center; }
+.nav-link{ position: relative; display: inline-block; font-size: .9rem; color: var(--ink-dim); padding: .55rem 0; }
+.nav-link::after{
+  content:""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .45s var(--ease);
+}
+.nav-link:hover{ color: var(--ink); }
+.nav-link:hover::after{ transform: scaleX(1); transform-origin: left; }
+@media (max-width: 900px){
+  .nav .cta{ padding: .7rem 1.1rem; font-size: .9rem; min-height: 44px; }
+  .nav .cta-sq{ width: 7px; height: 7px; }
+}
+@media (max-width: 760px){
+  .nav-links .nav-link{ display: none; }
+  .nav{ gap: .75rem; padding-block: .85rem; }
+  .nav-links{ gap: .6rem; }
+  .nav .cta{ padding: .7rem 1rem; font-size: .88rem; min-height: 44px; }
+  .nav .cta-sq{ width: 7px; height: 7px; }
+  .theme-toggle{ width: 44px; height: 44px; }
+}
+@media (max-width: 680px){ .nav .cta-long{ display: none; } }
+
+.theme-toggle{
+  width: 44px; height: 44px; display: grid; place-items: center;
+  background: none; border: 1px solid var(--line); color: var(--ink-dim);
+  cursor: pointer; padding: 0;
+  transition: border-color .3s var(--ease), color .3s var(--ease);
+}
+.theme-toggle:hover{ border-color: var(--ink-dim); color: var(--ink); }
+.theme-toggle span{ width: 12px; height: 12px; background: currentColor; display: block; }
+:root[data-theme="light"] .theme-toggle span{
+  background: none; box-shadow: inset 0 0 0 2px currentColor;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .theme-toggle span{
+    background: none; box-shadow: inset 0 0 0 2px currentColor;
+  }
+}
+
+/* ---------- botón WhatsApp ---------- */
+.cta{
+  position: relative;
+  display: inline-flex; align-items: center; gap: .75rem;
+  min-height: 48px;
+  padding: .95rem 1.6rem;
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 600; font-size: .98rem; letter-spacing: -.01em;
+  overflow: hidden; border: 1px solid var(--accent); cursor: pointer;
+  font-family: inherit; white-space: nowrap;
+  will-change: transform;
+}
+.cta > span{ position: relative; z-index: 1; display: block; }
+.cta::before{
+  content:""; position: absolute; inset: 0; z-index: 0;
+  background: var(--bg); transform: translateY(101%);
+  transition: transform .5s var(--ease);
+}
+.cta:hover::before{ transform: translateY(0); }
+.cta:hover{ color: var(--ink); border-color: var(--line); }
+.cta--ghost{ background: none; color: var(--ink); border: 1px solid var(--line); }
+.cta--ghost:hover{ color: var(--accent-ink); }
+.cta--ghost::before{ background: var(--accent); }
+.cta--lg{ padding: 1.35rem 2.3rem; font-size: 1.1rem; min-height: 60px; }
+.cta-sq{ width: 9px; height: 9px; background: currentColor; flex: none; }
+
+/* ---------- rail / progreso ---------- */
+.rail{
+  position: fixed; left: calc(var(--rail) / 2); top: 0; bottom: 0; width: 1px;
+  background: var(--line-soft); z-index: 40; pointer-events: none;
+}
+.rail i{
+  position: absolute; left: 50%; top: 0;
+  width: 9px; height: 9px; background: var(--accent);
+  transform: translate(-50%, -50%);
+  top: calc(var(--prog, 0) * 100%);
+}
+@media (max-width: 900px){ .rail{ display: none; } }
+
+/* ---------- cursor ---------- */
+.cursor{
+  position: fixed; top: 0; left: 0; z-index: 70;
+  width: 10px; height: 10px; background: var(--accent);
+  pointer-events: none; opacity: 0;
+  transition: opacity .3s linear;
+  will-change: transform;
+}
+@media (hover: none), (pointer: coarse){ .cursor{ display: none; } }
+
+/* ---------- hero ---------- */
+.hero{
+  position: relative;
+  min-height: 100svh;
+  display: flex; align-items: flex-end;
+  padding-block: 9rem 3.5rem;
+  overflow: hidden;
+}
+/* ---------- bandas con cámara ----------
+   Dos secciones llevan el mismo enjambre detrás, pero con otra cámara:
+   una sigue el centroide de una escuadra, la otra va montada sobre una
+   unidad y rota con su rumbo. La simulación es la misma; cambia el punto
+   de vista. */
+.banda{ position: relative; isolation: isolate; }
+.banda > .sec{ position: relative; z-index: 2; }
+.banda--alt{ background: var(--bg-2); border-block: 1px solid var(--line-soft); }
+.swarm--banda{ position: absolute; inset: 0; z-index: 0; }
+.veil--banda{
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(94deg,
+    var(--bg) 0%,
+    color-mix(in oklab, var(--bg) 90%, transparent) 30%,
+    color-mix(in oklab, var(--bg) 58%, transparent) 64%,
+    color-mix(in oklab, var(--bg) 30%, transparent) 92%);
+}
+.banda--alt .veil--banda{
+  background: linear-gradient(94deg,
+    var(--bg-2) 0%,
+    color-mix(in oklab, var(--bg-2) 90%, transparent) 30%,
+    color-mix(in oklab, var(--bg-2) 58%, transparent) 64%,
+    color-mix(in oklab, var(--bg-2) 30%, transparent) 92%);
+}
+.cam-hud{
+  position: absolute; right: clamp(14px, 2.2vw, 30px); bottom: clamp(12px, 1.8vw, 22px);
+  z-index: 3; color: var(--ink-faint); pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 900px){
+  .veil--banda{
+    background: linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in oklab, var(--bg) 78%, transparent) 20%,
+      color-mix(in oklab, var(--bg) 72%, transparent) 78%,
+      color-mix(in oklab, var(--bg) 34%, transparent) 100%);
+  }
+  .banda--alt .veil--banda{
+    background: linear-gradient(180deg,
+      var(--bg-2) 0%,
+      color-mix(in oklab, var(--bg-2) 78%, transparent) 20%,
+      color-mix(in oklab, var(--bg-2) 72%, transparent) 78%,
+      color-mix(in oklab, var(--bg-2) 34%, transparent) 100%);
+  }
+}
+
+/* ---------- enjambre ----------
+   Simulación de agentes autónomos: separación, alineación, cohesión y un
+   objetivo por escuadra. Veintiocho escuadras operando a la vez. Los
+   vecinos se buscan con rejilla espacial y tope por agente — todos contra
+   todos a esta población serían millones de comparaciones por cuadro. */
+.swarm{
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; opacity: 0; display: block;
+}
+.veil{
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(96deg,
+    var(--bg) 0%,
+    color-mix(in oklab, var(--bg) 93%, transparent) 26%,
+    color-mix(in oklab, var(--bg) 46%, transparent) 56%,
+    color-mix(in oklab, var(--bg) 12%, transparent) 84%);
+}
+.close .veil{
+  background: linear-gradient(96deg,
+    var(--bg) 0%,
+    color-mix(in oklab, var(--bg) 90%, transparent) 30%,
+    color-mix(in oklab, var(--bg) 55%, transparent) 62%,
+    color-mix(in oklab, var(--bg) 22%, transparent) 88%);
+}
+@media (max-width: 900px){
+  /* En vertical el texto ocupa casi todo el alto, así que el velo no puede
+     ser un degradado lateral: va parejo y solo se abre en los extremos. */
+  .veil{
+    background:
+      linear-gradient(180deg,
+        var(--bg) 0%,
+        color-mix(in oklab, var(--bg) 78%, transparent) 18%,
+        color-mix(in oklab, var(--bg) 72%, transparent) 76%,
+        color-mix(in oklab, var(--bg) 30%, transparent) 100%);
+  }
+}
+
+.hero-inner{ position: relative; z-index: 2; width: 100%; }
+.hero-eyebrow{ display: flex; align-items: center; gap: .7rem; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
+.hero-eyebrow i{ width: 8px; height: 8px; background: var(--accent); flex: none; }
+
+h1.hero-h1{
+  font-size: var(--t-h1);
+  line-height: 1;
+  letter-spacing: -0.034em;
+  font-variation-settings: "wght" var(--h1w, 700);
+  max-width: 16ch;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+.line{ display: block; overflow: hidden; margin-bottom: -0.2em; }
+.line:last-child{ margin-bottom: 0; }
+.line > span{ display: inline-block; line-height: 1.06; padding-top: 0.06em; will-change: transform; }
+.h1-accent{ color: var(--accent-text); }
+
+.hero-foot{
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  gap: clamp(1.75rem, 4vw, 4rem);
+  border-top: 1px solid var(--line-soft);
+  padding-top: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+.hero-sub{
+  font-size: var(--t-lead);
+  line-height: 1.38;
+  color: var(--ink-dim);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+.hero-cta{ display: flex; flex-direction: column; gap: .8rem; }
+.scroll-hint{ display: flex; align-items: center; gap: .6rem; margin-top: clamp(2rem, 4vw, 3.5rem); }
+.scroll-hint i{ display: block; width: 26px; height: 1px; background: var(--ink-faint); }
+
+/* ---------- marquee tecnología ---------- */
+.tech{
+  border-block: 1px solid var(--line-soft);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  overflow: hidden;
+}
+.tech-note{
+  max-width: 44ch; color: var(--ink-dim);
+  margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+}
+.marquee{ overflow: hidden; width: 100%; }
+.marquee-track{
+  display: flex; align-items: center; gap: 3.5rem;
+  width: max-content; will-change: transform;
+}
+/* Logotipos oficiales CON el nombre de cada marca, en su propia tipografía.
+   Van monocromos y sin atributo de color, así que heredan currentColor y el
+   tema claro y el oscuro salen gratis. Kapso y AI SDK no tienen logotipo
+   público, van tipografiadas al mismo peso óptico. */
+.marquee-item{
+  display: flex; align-items: center;
+  gap: clamp(1.5rem, 2.8vw, 3rem);
+  color: var(--ink); white-space: nowrap;
+}
+.marquee-item .lg{
+  height: calc(clamp(19px, 2.3vw, 36px) * var(--s, 1));
+  width: auto; flex: none; display: block;
+}
+.marquee-item .lg-word{
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.85vw, 30px);
+  font-variation-settings: "wght" 450;
+  letter-spacing: -0.015em; line-height: 1;
+  color: var(--ink-dim);
+}
+.marquee-item i{ width: 9px; height: 9px; background: var(--accent); flex: none; }
+
+/* ---------- secciones ---------- */
+.sec{ padding-block: clamp(5rem, 11vw, 11rem); }
+.sec-head{
+  display: grid; gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+}
+@media (min-width: 900px){
+  .sec-head{ grid-template-columns: 12rem minmax(0, 1fr); align-items: start; }
+}
+.sec-title{
+  font-size: var(--t-h2);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-variation-settings: "wght" 700;
+  max-width: 20ch;
+}
+.sec-label{ padding-top: .55rem; }
+
+/* servicios */
+.svc{ border-top: 1px solid var(--line-soft); position: relative; }
+.svc:last-child{ border-bottom: 1px solid var(--line-soft); }
+.svc::before{
+  content:""; position: absolute; left: 0; top: -1px; height: 1px; width: 100%;
+  background: var(--accent); transform: scaleX(var(--draw, 0)); transform-origin: left;
+  transition: transform .6s var(--ease);
+}
+.svc:hover::before{ transform: scaleX(1); }
+/* El cursor deja una luz que lo sigue a lo largo de la fila. */
+.svc::after{
+  content:""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity .45s var(--ease);
+  background: radial-gradient(420px 150% at var(--mx, 50%) 50%,
+    color-mix(in oklab, var(--ink) 7%, transparent), transparent 70%);
+}
+.svc:hover::after{ opacity: 1; }
+.svc-in{ position: relative; z-index: 1; }
+.svc-in{
+  display: grid; gap: .6rem 2rem;
+  grid-template-columns: minmax(0,1fr);
+  padding-block: clamp(1.6rem, 2.6vw, 2.4rem);
+  transition: padding-left .5s var(--ease);
+}
+@media (min-width: 900px){
+  .svc-in{ grid-template-columns: 5.5rem minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 2.5rem; }
+  .svc:hover .svc-in{ padding-left: 1.1rem; }
+}
+.svc-idx{ padding-top: .45rem; color: var(--ink-faint); transition: color .4s var(--ease); }
+.svc:hover .svc-idx{ color: var(--accent-text); }
+.svc-title{
+  font-family: var(--font-body);
+  font-size: var(--t-h3);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .75rem;
+}
+.svc-body{ color: var(--ink-dim); max-width: 52ch; text-wrap: pretty; }
+.tag{
+  font-family: "Martian Mono", monospace;
+  font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent-ink); background: var(--accent);
+  padding: .32rem .55rem; transform: translateY(-.18em);
+}
+
+/* por qué */
+.why{ display: grid; gap: 0; }
+.why-item{
+  border-top: 1px solid var(--line-soft);
+  padding-block: clamp(1.75rem, 3vw, 2.6rem);
+  display: grid; gap: .65rem 2.5rem;
+  grid-template-columns: minmax(0,1fr);
+}
+.why-item:last-child{ border-bottom: 1px solid var(--line-soft); }
+@media (min-width: 900px){
+  .why-item{ grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: baseline; }
+}
+.why-t{
+  font-family: var(--font-body);
+  font-size: clamp(1.4rem, 3.1vw, 2.7rem);
+  line-height: 1.12; letter-spacing: -0.025em;
+  font-weight: 600;
+  display: flex; gap: .9rem; align-items: baseline;
+}
+.why-t i{
+  width: 10px; height: 10px; background: var(--accent); flex: none;
+  transform: translateY(-.15em);
+  transition: transform .5s var(--ease), width .5s var(--ease);
+}
+.why-item{ transition: padding-left .5s var(--ease); }
+.why-item:hover{ padding-left: .9rem; }
+.why-item:hover .why-t i{ width: 26px; transform: translateY(-.15em); }
+.why-b{ transition: color .4s var(--ease); }
+.why-item:hover .why-b{ color: var(--ink); }
+.why-b{ color: var(--ink-dim); max-width: 48ch; text-wrap: pretty; }
+
+/* cómo trabajamos */
+.steps{ display: grid; gap: clamp(2rem, 4vw, 3.25rem); }
+@media (min-width: 820px){ .steps{ grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 2.5vw, 2.5rem); } }
+.steps{ position: relative; }
+/* Un hilo que se dibuja de izquierda a derecha y enhebra los cuatro pasos. */
+.steps::before{
+  content:""; position: absolute; left: 0; top: 0; height: 1px; width: 100%;
+  background: var(--accent); transform: scaleX(var(--hilo, 0)); transform-origin: left;
+}
+.step{ border-top: 1px solid var(--line); padding-top: 1.4rem; position: relative; }
+.step-t, .step-b{ transition: color .4s var(--ease), transform .5s var(--ease); }
+.step:hover .step-t{ transform: translateX(5px); }
+.step:hover .step-b{ color: var(--ink); }
+.step::before{
+  content:""; position: absolute; left: 0; top: -5px; width: 9px; height: 9px; background: var(--accent);
+}
+.step-n{ margin-bottom: 1.1rem; display: block; }
+.step-t{
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.18; letter-spacing: -0.02em;
+  font-weight: 600;
+  margin-bottom: .6rem;
+}
+.step-b{ color: var(--ink-dim); font-size: .98rem; text-wrap: pretty; }
+
+/* cierre */
+.close{
+  position: relative;
+  padding-block: clamp(6rem, 14vw, 14rem);
+  border-top: 1px solid var(--line-soft);
+  overflow: hidden;
+}
+.close-in{ position: relative; z-index: 2; }
+.close-h{
+  font-size: clamp(2.3rem, 6.6vw, 6.6rem);
+  line-height: 0.98; letter-spacing: -0.032em;
+  font-variation-settings: "wght" 700;
+  max-width: 16ch;
+  margin-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+.close-p{ font-size: var(--t-lead); color: var(--ink-dim); margin-bottom: clamp(2rem, 3.5vw, 3rem); max-width: 34ch; }
+.close-note{ margin-top: 1.1rem; }
+
+/* footer */
+.foot{
+  border-top: 1px solid var(--line-soft);
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 3vw, 3rem);
+  display: grid; gap: 2.5rem;
+}
+.foot-top{ display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; justify-content: space-between; }
+.foot-logo{ height: clamp(28px, 4.5vw, 54px); display: flex; }
+.foot-nav{ display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.foot-nav .nav-link{ padding-block: .85rem; }
+.foot-bot{
+  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
+  border-top: 1px solid var(--line-soft); padding-top: 1.5rem;
+}
+
+/* ---------- partido de texto ----------
+   Las líneas y los caracteres se envuelven en cajas para animarlos por
+   separado. Con interlínea 1.55 hay aire de sobra, así que el recorte de
+   la caja no come ascendentes ni descendentes. */
+.ln{ display: block; overflow: hidden; }
+.ln > span{ display: block; will-change: transform; }
+.pal{ display: inline-block; white-space: nowrap; }
+.ch{ display: inline-block; will-change: transform; }
+.sec-title, .close-h{ perspective: 760px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .cursor{ display: none; }
+}

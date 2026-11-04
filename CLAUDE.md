@@ -3,7 +3,7 @@
 Portada pública de RX83 Agencia de IA. Next.js 15 (App Router), React 19, TypeScript, CSS
 plano. Sin base de datos, sin secretos, sin API.
 
-**Esto es el SITIO. `repos/rx83-agent` es otra cosa** — el agente de WhatsApp, otro repo, otro
+**Esto es el SITIO. `repos/rx83-agents` es otra cosa** — el agente de WhatsApp, otro repo, otro
 deploy, otro ciclo. No se mezclan.
 
 ## Antes de tocar estilo: leé `DESIGN.md`

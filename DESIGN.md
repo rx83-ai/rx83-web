@@ -1,6 +1,6 @@
 # RX83 — sistema de diseño del sitio
 
-> Este documento es del **sitio** (`rx83-web`). `rx83-agent` no tiene interfaz: su
+> Este documento es del **sitio** (`rx83-web`). `rx83-agents` no tiene interfaz: su
 > documento equivalente es el contrato del webhook, en su propio README.
 
 Todo el estilo vive en **`src/app/globals.css`** (CSS plano por clases, sin Tailwind ni
